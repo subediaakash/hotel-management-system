@@ -35,7 +35,7 @@ function Deals() {
         <LocationCard
           locationImage="./unitedKingdom.jpg"
           locationTitle="The country of universities, UK"
-          locationDescription={UnitedKingdomDescription}
+          locationDescription={UnitedKingdomDescription }
         />
       </div>
     </div>
