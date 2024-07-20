@@ -8,25 +8,47 @@ datasource db {
 }
 
 model Guest {
-  id            Int             @id @default(autoincrement())
+  id            Int            @id @default(autoincrement())
   name          String
-  email         String          @unique
+  email         String         @unique
   password      String
   dateOfBirth   DateTime
   phoneNumber   Int
   language      String
   work          String
-  GuestPassport GuestPassport[]
+  guestPassport GuestPassport?
 }
 
 model GuestPassport {
   id                 Int      @id @default(autoincrement())
   passportNumber     Int
-  passportIssueDate  Int
-  passportExpiryDate Int
-  DateOfBirth        DateTime
+  passportIssueDate  DateTime
+  passportExpiryDate DateTime
+  dateOfBirth        DateTime
   placeOfBirth       String
   passportCountry    String
   holder             Guest    @relation(fields: [passportHolderId], references: [id])
-  passportHolderId   Int
+  passportHolderId   Int      @unique
+}
+
+model Booking {
+  id           Int       @id @default(autoincrement())
+  date         DateTime
+  checkoutDate DateTime
+  destination  String
+  type         GuestType
+  stayDuration Int
+  status       Status    @default(notVerifired)
+}
+
+enum GuestType {
+  individual
+  platinum
+  longTerm
+  vacation
+}
+
+enum Status {
+  confirmed
+  notVerifired
 }
