@@ -17,6 +17,7 @@ model Guest {
   language      String
   work          String
   guestPassport GuestPassport?
+  Booking       Booking[]
 }
 
 model GuestPassport {
@@ -31,24 +32,45 @@ model GuestPassport {
   passportHolderId   Int      @unique
 }
 
+model Admin {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+}
+
 model Booking {
   id           Int       @id @default(autoincrement())
   date         DateTime
   checkoutDate DateTime
-  destination  String
   type         GuestType
-  stayDuration Int
-  status       Status    @default(notVerifired)
+  status       Status?   @default(notVerifired)
+  location     Locations
+  bookedBy     Guest     @relation(fields: [guestId], references: [id])
+  guestId      Int
 }
 
 enum GuestType {
-  individual
-  platinum
-  longTerm
-  vacation
+  Individual
+  Platinum
+  LongTerm
+  Vacation
 }
 
 enum Status {
   confirmed
   notVerifired
+}
+
+enum Locations {
+  Kathmandu
+  UnitedKingdom
+  Melbourne
+  Paris
+  Kolkata
+  Islamabad
+  Moscow
+  Bengaluru
+  Sydney
+  Delhi
 }

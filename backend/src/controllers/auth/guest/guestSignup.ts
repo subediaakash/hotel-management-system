@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import createToken from "../../../utils/createToken";
 import { IPayload } from "../../../types/Ipayload";
-import { IGuestPayload } from "../../../types/IGuestPayload";
 
 const prisma = new PrismaClient();
 
