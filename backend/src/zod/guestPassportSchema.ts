@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { string, z } from "zod";
 
 export const passportSchema = z.object({
   passportNumber: z.string(),
