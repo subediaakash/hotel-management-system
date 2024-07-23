@@ -4,7 +4,8 @@ export const guestAuthSchema = z.object({
   email: z.string(),
   password: z.string().min(4),
   dateOfBirth: z.string(),
-  phoneNumber: z.number(),
+  phoneNumber: z.string(),
   language: z.string(),
   work: z.string(),
+  address: z.string(),
 });

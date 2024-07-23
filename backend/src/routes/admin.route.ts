@@ -5,6 +5,7 @@ import { verifyBooking } from "../controllers/admin/verifyBooking";
 import { addHotel } from "../controllers/admin/addHotel";
 import { adminRoleCheck } from "../middlewares/admin.role";
 import { authMiddleware } from "../middlewares/jwt.auth";
+import { enrollNewDeal } from "../controllers/admin/addDeals";
 
 export const adminRouter = Router();
 
@@ -12,3 +13,4 @@ adminRouter.post("/signup", adminSignup);
 adminRouter.post("/signin", adminSignin);
 adminRouter.post("/verify/:bookingId", verifyBooking);
 adminRouter.post("/add", authMiddleware, adminRoleCheck, addHotel);
+adminRouter.post("/newdeal", authMiddleware, adminRoleCheck, enrollNewDeal);

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const passportSchema = z.object({
-  passportNumber: z.number(),
+  passportNumber: z.string(),
   passportIssueDate: z.string(),
   passportExpiryDate: z.string(),
   dateOfBirth: z.string(),

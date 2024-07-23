@@ -10,8 +10,16 @@ import { IPayload } from "../../../types/Ipayload";
 const prisma = new PrismaClient();
 
 export const GuestSignup = async (req: Request, res: Response) => {
-  const { name, email, password, dateOfBirth, phoneNumber, language, work } =
-    req.body;
+  const {
+    name,
+    email,
+    password,
+    dateOfBirth,
+    phoneNumber,
+    language,
+    work,
+    address,
+  } = req.body;
 
   const parsedInput = guestAuthSchema.safeParse(req.body);
 
@@ -47,6 +55,7 @@ export const GuestSignup = async (req: Request, res: Response) => {
         phoneNumber,
         language,
         work,
+        address,
       },
     });
 

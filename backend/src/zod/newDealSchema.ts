@@ -1,8 +1,6 @@
 import { z } from "zod";
-export const locationSchema = z.object({
-  date: z.string(),
-  checkoutDate: z.string(),
-  type: z.enum(["Individual", "Platinum", "LongTerm", "Vacation"]),
+export const newDealSchema = z.object({
+  validTill: z.string(),
   location: z.enum([
     "Kathmandu",
     "UnitedKingdom",
@@ -16,4 +14,5 @@ export const locationSchema = z.object({
     "Delhi",
   ]),
   hotelId: z.number(),
+  packageCost: z.number(),
 });

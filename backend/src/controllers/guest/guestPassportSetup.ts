@@ -11,11 +11,24 @@ export const guestPassportSetup = async (req: Request, res: Response) => {
   if (!parsedInput.success) {
     return res.status(STATUS_CODE.UNPROCESSABLE_ENTITY).json({
       error: "Validation failed",
+      details: parsedInput.error,
     });
   }
 
   try {
-    const passportHolderId = res.locals.user.id;
+    const passportHolderId = parseInt(res.locals.user.id);
+
+    const existingPassport = await prisma.guestPassport.findUnique({
+      where: {
+        passportHolderId,
+      },
+    });
+
+    if (existingPassport) {
+      return res.status(STATUS_CODE.CONFLICT).json({
+        error: "Passport details already exist for this guest",
+      });
+    }
 
     const createdPassport = await prisma.guestPassport.create({
       data: {
@@ -25,10 +38,9 @@ export const guestPassportSetup = async (req: Request, res: Response) => {
         dateOfBirth: new Date(req.body.dateOfBirth),
         placeOfBirth: req.body.placeOfBirth,
         passportCountry: req.body.passportCountry,
-        passportHolderId: passportHolderId,
+        passportHolderId,
       },
     });
-    console.log("Control reached here");
 
     return res.status(STATUS_CODE.CREATED).json({
       details: createdPassport,

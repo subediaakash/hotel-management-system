@@ -16,6 +16,7 @@ model Guest {
   phoneNumber   String
   language      String
   work          String
+  address       String
   guestPassport GuestPassport?
   bookings      Booking[]
   hotelsVisited GuestHotel[]
@@ -39,7 +40,7 @@ model GuestHotel {
   hotel   Hotel @relation(fields: [hotelId], references: [id])
   hotelId Int
 
-  @@id([guestId, hotelId])
+  @@unique([guestId, hotelId])
 }
 
 model NewDeal {
@@ -80,8 +81,8 @@ model Booking {
   location     Locations
   bookedBy     Guest     @relation(fields: [guestId], references: [id])
   guestId      Int
-  hotel        Hotel     @relation(fields: [hotelId], references: [id])
-  hotelId      Int
+  hotel        Hotel?    @relation(fields: [hotelId], references: [id])
+  hotelId      Int?
   cost         Int?
 }
 
