@@ -1,10 +1,10 @@
-generator client {
-  provider = "prisma-client-js"
-}
-
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
 
 model Guest {
@@ -13,16 +13,48 @@ model Guest {
   email         String         @unique
   password      String
   dateOfBirth   DateTime
-  phoneNumber   Int
+  phoneNumber   String
   language      String
   work          String
   guestPassport GuestPassport?
-  Booking       Booking[]
+  bookings      Booking[]
+  hotelsVisited GuestHotel[]
+  Deal          NewDeal?       @relation(fields: [newDealId], references: [id])
+  newDealId     Int?
+}
+
+model Hotel {
+  id             Int          @id @default(autoincrement())
+  name           String
+  location       Locations
+  incomingGuests GuestHotel[]
+  bookings       Booking[]
+  NewDeal        NewDeal[]
+}
+
+model GuestHotel {
+  id      Int   @default(autoincrement())
+  guest   Guest @relation(fields: [guestId], references: [id])
+  guestId Int
+  hotel   Hotel @relation(fields: [hotelId], references: [id])
+  hotelId Int
+
+  @@id([guestId, hotelId])
+}
+
+model NewDeal {
+  id             Int       @id @default(autoincrement())
+  validTill      DateTime
+  location       Locations
+  hotel          Hotel     @relation(fields: [hotelId], references: [id])
+  hotelId        Int
+  packageCost    Int
+  guestsEnrolled Guest[]
 }
 
 model GuestPassport {
   id                 Int      @id @default(autoincrement())
-  passportNumber     Int
+  passportNumber     String
   passportIssueDate  DateTime
   passportExpiryDate DateTime
   dateOfBirth        DateTime
@@ -44,10 +76,13 @@ model Booking {
   date         DateTime
   checkoutDate DateTime
   type         GuestType
-  status       Status?   @default(notVerifired)
+  status       Status?   @default(notVerified)
   location     Locations
   bookedBy     Guest     @relation(fields: [guestId], references: [id])
   guestId      Int
+  hotel        Hotel     @relation(fields: [hotelId], references: [id])
+  hotelId      Int
+  cost         Int?
 }
 
 enum GuestType {
@@ -59,7 +94,7 @@ enum GuestType {
 
 enum Status {
   confirmed
-  notVerifired
+  notVerified
 }
 
 enum Locations {
