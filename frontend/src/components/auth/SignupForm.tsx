@@ -37,11 +37,13 @@ function SignupForm() {
           },
         }
       );
+      console.log(response.data);
 
       const { token } = response.data;
       localStorage.setItem("token", token);
 
       navigate("/");
+      console.log("Control reached here");
     } catch (error) {
       console.log(error);
     }

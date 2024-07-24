@@ -6,3 +6,14 @@ export const authState = atom({
     isAuthenticated: !!localStorage.getItem("token"),
   },
 });
+
+export const userState = atom({
+  key: "userState",
+  default: {
+    dateOfBirth: "",
+    phoneNumber: "",
+    language: "",
+    work: "",
+    address: "",
+  },
+});

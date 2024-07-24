@@ -6,6 +6,8 @@ import Payments from "./pages/Guest/Payments";
 import Conversation from "./pages/Guest/Conversation";
 import SignupForm from "./components/auth/SignupForm";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import SigninForm from "./components/auth/SigninForm";
+import PassportForm from "./components/GuestComponents/PassportForm";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/signup" element={<SignupForm />} />
+          <Route path="/signin" element={<SigninForm />} />
+
           <Route
             path="/"
             element={
@@ -21,8 +25,30 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/bookings" element={<Bookings />} />
-          <Route path="/deals" element={<Deals />} />
+          <Route
+            path="/bookings"
+            element={
+              <ProtectedRoute>
+                <Bookings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/deals"
+            element={
+              <ProtectedRoute>
+                <Deals />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/passportsetup"
+            element={
+              <ProtectedRoute>
+                <PassportForm />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/payments" element={<Payments />} />
           <Route path="/conversations" element={<Conversation />} />
         </Routes>
