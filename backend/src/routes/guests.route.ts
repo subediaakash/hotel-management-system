@@ -11,6 +11,7 @@ import { getDealByid } from "../controllers/guest/getDealByid";
 import { acceptDeal } from "../controllers/guest/acceptDeal";
 import { guestInfo } from "../controllers/guest/guestInfo";
 import { guestPassportDetails } from "../controllers/guest/guestPassportdetails";
+import bookingHistory from "../controllers/guest/showBookings";
 export const guestRouter = Router();
 
 guestRouter.post("/signup", GuestSignup);
@@ -24,3 +25,4 @@ guestRouter.get("/hotels", authMiddleware, getHotelByLocation);
 guestRouter.get("/deals/:dealId", authMiddleware, getDealByid);
 guestRouter.get("/info", authMiddleware, guestInfo);
 guestRouter.get("/passport", authMiddleware, guestPassportDetails);
+guestRouter.get("/bookings", authMiddleware, bookingHistory);
