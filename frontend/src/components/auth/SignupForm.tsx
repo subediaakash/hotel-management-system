@@ -42,7 +42,7 @@ function SignupForm() {
       const { token } = response.data;
       localStorage.setItem("token", token);
 
-      navigate("/");
+      navigate("/passportsetup");
       console.log("Control reached here");
     } catch (error) {
       console.log(error);
