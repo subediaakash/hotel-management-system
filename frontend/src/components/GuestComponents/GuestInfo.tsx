@@ -1,12 +1,18 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchGuestDetails } from "../../utils/fetchGuestDetails";
+import { useRecoilState } from "recoil";
+import { userState } from "../../store/atom";
 
 function GuestInfo() {
-  const query = useQuery({
+  const [guestInfo, setGuestInfo] = useRecoilState(userState);
+
+  const { isLoading, error, data } = useQuery({
     queryKey: ["guestinfo"],
     queryFn: fetchGuestDetails,
     staleTime: 0,
   });
+
+  setGuestInfo(data);
 
   const InfoStyle = "flex justify-between py-2 w-[25vw]";
   const TitleStyle = "font-medium";
@@ -15,8 +21,6 @@ function GuestInfo() {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
-
-  const { isLoading, error, data } = query;
 
   return (
     <div className="border p-4 bg-white">
@@ -31,7 +35,7 @@ function GuestInfo() {
             <span className={TitleStyle}>Date of Birth :</span>{" "}
             <span>
               {data?.guestById?.dateOfBirth
-                ? formatDate(data.guestById?.dateOfBirth)
+                ? formatDate(data.guestById.dateOfBirth)
                 : "N/A"}
             </span>
           </p>

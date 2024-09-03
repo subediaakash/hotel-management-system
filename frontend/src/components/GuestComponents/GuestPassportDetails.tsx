@@ -3,7 +3,7 @@ import { fetchPassportDetails } from "../../utils/fetchPassportDetails";
 
 function GuestPassportDetails() {
   const { isLoading, error, data } = useQuery({
-    queryKey: ["passportdetails"], // Replace with your API endpoint
+    queryKey: ["passportdetails"],
     queryFn: fetchPassportDetails,
     staleTime: 0,
   });

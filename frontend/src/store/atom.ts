@@ -9,11 +9,5 @@ export const authState = atom({
 
 export const userState = atom({
   key: "userState",
-  default: {
-    dateOfBirth: "",
-    phoneNumber: "",
-    language: "",
-    work: "",
-    address: "",
-  },
+  default: {},
 });

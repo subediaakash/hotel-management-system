@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc && node dist/app.js",
-    "dev": "nodemon src/app.ts"
-  },
+    "dev": "nodemon --exec npx ts-node src/app.ts"  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -26,6 +25,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "nodemon": "^3.1.4",
     "prisma": "^5.17.0",
-    "typescript": "^5.5.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   }
 }

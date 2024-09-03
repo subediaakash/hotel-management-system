@@ -1,8 +1,10 @@
+import { useQuery } from "@tanstack/react-query";
+
 function BookingList() {
   return (
     <div className="w-[55vw] font-Roboto shadow-lg mt-2 hover:shadow-xl flex justify-between">
       <div className=" w-[30vw] mt-3">
-        <p className="p-3 text-slate-500">Upcoming Bookings</p>
+        <p className="p-3 text-slate-500">Your Booking History</p>
         <div className="w-[60%] flex flex-col gap-2 p-3 ">
           <p className="flex justify-between">
             <span className="w-1/3 font-medium">Date :</span>

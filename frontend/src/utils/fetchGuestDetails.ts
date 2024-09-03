@@ -1,5 +1,5 @@
 import axios from "axios";
-export const fetchGuestDetails = async (endpoint: string) => {
+export const fetchGuestDetails = async () => {
   const response = await axios.get(`http://localhost:5000/api/guest/info`, {
     headers: {
       "Content-Type": "application/json",
