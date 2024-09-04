@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
 import PassportForm from "./components/GuestComponents/PassportForm";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import PaymentPage from "./pages/Guest/PaymentPage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ function App() {
               }
             />
             <Route path="/payments" element={<Payments />} />
+            <Route path="/book" element={<PaymentPage />} />
             <Route path="/conversations" element={<Conversation />} />
           </Routes>
         </Router>
