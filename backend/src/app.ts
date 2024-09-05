@@ -7,10 +7,15 @@ import { adminRouter } from "./routes/admin.route";
 
 const app = express();
 const port = 5000;
-app.use(cors());
+
+var corsOptions = {
+  origin: "http://localhost:5173",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
 app.use(express.json());
 
-app.use("/api/guest", guestRouter);
+app.use("/api/guest", cors(corsOptions), guestRouter);
 app.use("/api/admin", adminRouter);
 
 app.listen(port, () => {
