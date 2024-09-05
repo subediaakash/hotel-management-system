@@ -16,6 +16,7 @@ export const guestInfo = async (req: Request, res: Response) => {
         phoneNumber: true,
         language: true,
         work: true,
+        address: true,
       },
     });
 
