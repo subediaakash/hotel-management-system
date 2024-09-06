@@ -31,7 +31,6 @@ export const newBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // Check if the hotel exists
     const hotelExists = await prisma.hotel.findUnique({
       where: { id: hotelId },
     });
@@ -42,7 +41,6 @@ export const newBooking = async (req: Request, res: Response) => {
       });
     }
 
-    // Create the booking
     const newBookingRequest = await prisma.booking.create({
       data: {
         date: new Date(newBooking.date),
@@ -54,7 +52,6 @@ export const newBooking = async (req: Request, res: Response) => {
       },
     });
 
-    // Create the guest-hotel relation
     const newGuestHotelRelation = await prisma.guestHotel.create({
       data: {
         guestId: guestId,

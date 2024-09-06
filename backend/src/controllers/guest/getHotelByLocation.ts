@@ -1,13 +1,24 @@
 import { Request, Response } from "express";
 import { prisma } from "../../utils/Prisma";
+import { Locations } from "@prisma/client";
 
 export const getHotelByLocation = async (req: Request, res: Response) => {
-  const location = req.body.location;
+  const location = req.query.location as string;
 
   try {
+    if (
+      !location ||
+      !Object.values(Locations).includes(location as Locations)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid location provided",
+      });
+    }
+
     const findHotels = await prisma.hotel.findMany({
       where: {
-        location: location,
+        location: location as Locations,
       },
     });
 
