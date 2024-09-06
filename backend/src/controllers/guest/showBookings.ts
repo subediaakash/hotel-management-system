@@ -4,7 +4,13 @@ import { STATUS_CODE } from "../../constants";
 
 const bookingHistory = async (req: Request, res: Response) => {
   try {
-    const bookingHistory = await prisma.booking.findMany();
+    console.log(res.locals.user.id);
+
+    const bookingHistory = await prisma.booking.findMany({
+      where: {
+        guestId: res.locals.user.id,
+      },
+    });
     return res.status(STATUS_CODE.FOUND).json({ bookingHistory });
   } catch (error) {
     console.error("Error fetching booking history:", error);
