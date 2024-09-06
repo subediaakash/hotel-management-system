@@ -22,17 +22,14 @@ function GuestStatus() {
     queryFn: fetchGuestInfo,
   });
 
-  // Handle loading state
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  // Handle error state
   if (error) {
     return <div>Error loading guest info: {error.message}</div>;
   }
 
-  // Handle case when data is not present
   if (!data) {
     return <div>No guest data available</div>;
   }
