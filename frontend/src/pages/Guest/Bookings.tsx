@@ -11,7 +11,6 @@ export default function Bookings() {
           <GuestNavbar />
           <BookingList />
           <NewBookingAdv />
-          {/* <NoBookingsFound /> */}
         </div>
       </div>
       <GuestFooter />

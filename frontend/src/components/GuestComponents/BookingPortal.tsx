@@ -24,7 +24,7 @@ const BookingPortal = () => {
     "Delhi",
   ];
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     if (!selectedLocation) {
@@ -42,7 +42,7 @@ const BookingPortal = () => {
             location: selectedLocation,
           },
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -55,9 +55,7 @@ const BookingPortal = () => {
 
   const handleBooking = () => {
     if (selectedHotelId) {
-      // Handle booking logic here
       console.log(`Booking hotel with ID: ${selectedHotelId}`);
-      // You can add more logic for booking the hotel using axios or any other method
     } else {
       alert("Please select a hotel to book.");
     }
@@ -176,7 +174,7 @@ const BookingPortal = () => {
             Available Hotels in {selectedLocation}:
           </h3>
           <ul className="space-y-2">
-            {hotels.map((hotel) => (
+            {hotels.map((hotel: any) => (
               <li key={hotel.id} className="bg-gray-100 p-3 rounded-md">
                 <div className="flex items-center space-x-2">
                   <input
