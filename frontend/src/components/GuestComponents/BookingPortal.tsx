@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Calendar, MapPin } from "lucide-react";
 
@@ -8,7 +8,8 @@ const BookingPortal = () => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
   const [hotels, setHotels] = useState([]);
-  const [selectedHotelId, setSelectedHotelId] = useState(null); // For selecting a hotel
+  const [selectedHotelId, setSelectedHotelId] = useState(null);
+  const [bookingData, setBookingData] = useState({});
 
   const stayTypes = ["Individual", "Platinum", "LongTerm", "Vacation"];
   const locations = [
@@ -38,26 +39,64 @@ const BookingPortal = () => {
       const response = await axios.get(
         `http://localhost:5000/api/guest/hotels`,
         {
-          params: {
-            location: selectedLocation,
-          },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          params: { location: selectedLocation },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
       setHotels(response.data.data || []);
-      setSelectedHotelId(null); // Reset selected hotel
+      setSelectedHotelId(null);
     } catch (error) {
       console.error("Error fetching hotels:", error);
     }
   };
 
-  const handleBooking = () => {
-    if (selectedHotelId) {
-      console.log(`Booking hotel with ID: ${selectedHotelId}`);
-    } else {
+  const submitBooking = async (e: any) => {
+    e.preventDefault();
+
+    if (!selectedHotelId) {
       alert("Please select a hotel to book.");
+      return;
+    }
+
+    const newBookingData = {
+      date: checkInDate,
+      checkoutDate: checkOutDate,
+      type: selectedStayType,
+      location: selectedLocation,
+      hotelId: selectedHotelId,
+    };
+
+    console.log("Booking Data:", newBookingData);
+    setBookingData(newBookingData);
+
+    if (bookingData) {
+      const token = localStorage.getItem("token");
+
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/guest/newbooking",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(bookingData),
+          }
+        );
+        console.log(response);
+
+        if (!response.ok) {
+          throw new Error("Failed to create booking");
+        }
+
+        const result = await response.json();
+        console.log("Booking success:", result);
+        alert("Booking successful!");
+      } catch (error) {
+        console.error("Booking error:", error);
+        alert("Booking failed. Please try again.");
+      }
     }
   };
 
@@ -167,8 +206,7 @@ const BookingPortal = () => {
           Search Hotels
         </button>
       </form>
-
-      {hotels.length > 0 ? (
+      {hotels.length > 0 && (
         <div className="mt-8">
           <h3 className="text-lg font-semibold mb-4">
             Available Hotels in {selectedLocation}:
@@ -187,18 +225,19 @@ const BookingPortal = () => {
                   />
                   <label htmlFor={`hotel-${hotel.id}`}>{hotel.name}</label>
                 </div>
-                <button
-                  onClick={handleBooking}
-                  className="mt-2 bg-green-600 text-white py-1 px-3 rounded-md hover:bg-green-700 transition-colors duration-300"
-                  disabled={selectedHotelId !== hotel.id}
-                >
-                  Book Now
-                </button>
               </li>
             ))}
           </ul>
+          <button
+            onClick={submitBooking}
+            className="mt-4 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors duration-300"
+          >
+            Book Now
+          </button>
         </div>
-      ) : (
+      )}
+
+      {hotels.length === 0 && (
         <div className="mt-8 text-center text-red-600">
           No hotels available in this region.
         </div>

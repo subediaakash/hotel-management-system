@@ -3,7 +3,7 @@ import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 
 function PaymentPage() {
   return (
-    <div>
+    <div className="flex justify-center items-center flex-col ">
       <GuestNavbar />
       <BookingPortal />
     </div>

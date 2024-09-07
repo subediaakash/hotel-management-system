@@ -8,58 +8,52 @@ import SignupForm from "./components/auth/SignupForm";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
 import PassportForm from "./components/GuestComponents/PassportForm";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import PaymentPage from "./pages/Guest/PaymentPage";
 
 function App() {
-  const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <div>
-        <Router>
-          <Routes>
-            <Route path="/signup" element={<SignupForm />} />
-            <Route path="/signin" element={<SigninForm />} />
+    <Router>
+      <Routes>
+        <Route path="/signup" element={<SignupForm />} />
+        <Route path="/signin" element={<SigninForm />} />
 
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <MainGuestPage />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/bookings"
-              element={
-                <ProtectedRoute>
-                  <Bookings />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/deals"
-              element={
-                <ProtectedRoute>
-                  <Deals />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/passportsetup"
-              element={
-                <ProtectedRoute>
-                  <PassportForm />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/book" element={<PaymentPage />} />
-            <Route path="/conversations" element={<Conversation />} />
-          </Routes>
-        </Router>
-      </div>
-    </QueryClientProvider>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <MainGuestPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/bookings"
+          element={
+            <ProtectedRoute>
+              <Bookings />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/deals"
+          element={
+            <ProtectedRoute>
+              <Deals />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/passportsetup"
+          element={
+            <ProtectedRoute>
+              <PassportForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/payments" element={<Payments />} />
+        <Route path="/book" element={<PaymentPage />} />
+        <Route path="/conversations" element={<Conversation />} />
+      </Routes>
+    </Router>
   );
 }
 
