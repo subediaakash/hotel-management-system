@@ -101,11 +101,14 @@ const BookingPortal = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+    <div className="  bg-white rounded-lg shadow-lg  container mx-auto">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         Hotel Booking Portal
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 flex  items-center gap-2"
+      >
         <div className="flex space-x-4">
           <div className="flex-1">
             <label

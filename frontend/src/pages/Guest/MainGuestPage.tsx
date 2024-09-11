@@ -1,4 +1,5 @@
 import AmountPaid from "../../components/GuestComponents/AmountPaid";
+import BookingPortal from "../../components/GuestComponents/BookingPortal";
 import GuestInfo from "../../components/GuestComponents/GuestInfo";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import GuestPassportDetails from "../../components/GuestComponents/GuestPassportDetails";
@@ -18,8 +19,11 @@ function MainGuestPage() {
             <GuestInfo />
             <GuestPassportDetails />
           </div>
-          <GuestServices />
-          <AmountPaid />
+          <div>
+            <BookingPortal />
+          </div>
+          {/* <GuestServices />
+          <AmountPaid /> */}
         </div>
       </div>
     </div>

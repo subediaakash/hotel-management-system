@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
 import PassportForm from "./components/GuestComponents/PassportForm";
 import PaymentPage from "./pages/Guest/PaymentPage";
+import Temp from "./pages/Guest/Temp";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/payments" element={<Payments />} />
         <Route path="/book" element={<PaymentPage />} />
         <Route path="/conversations" element={<Conversation />} />
+        <Route path="/temp" element={<Temp />} />
       </Routes>
     </Router>
   );

@@ -4,8 +4,6 @@ import { STATUS_CODE } from "../../constants";
 
 const bookingHistory = async (req: Request, res: Response) => {
   try {
-    console.log(res.locals.user.id);
-
     const bookingHistory = await prisma.booking.findMany({
       where: {
         guestId: res.locals.user.id,

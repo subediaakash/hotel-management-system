@@ -17,13 +17,9 @@ export const newBooking = async (req: Request, res: Response) => {
   const hotelId = newBooking.hotelId;
 
   try {
-    console.log(guestId);
-
     const guestExists = await prisma.guest.findUnique({
       where: { id: guestId },
     });
-
-    console.log(guestExists);
 
     if (!guestExists) {
       return res.status(STATUS_CODE.NOT_FOUND).json({

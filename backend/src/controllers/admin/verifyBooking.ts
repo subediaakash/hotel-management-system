@@ -4,7 +4,6 @@ import { STATUS_CODE } from "../../constants";
 
 export const verifyBooking = async (req: Request, res: Response) => {
   const bookingId = parseInt(req.params.bookingId, 10);
-  console.log(bookingId);
 
   if (!bookingId) {
     return res.status(STATUS_CODE.BAD_REQUEST).json({

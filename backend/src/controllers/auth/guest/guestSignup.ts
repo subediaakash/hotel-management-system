@@ -24,8 +24,6 @@ export const GuestSignup = async (req: Request, res: Response) => {
   const parsedInput = guestAuthSchema.safeParse(req.body);
 
   if (!parsedInput.success) {
-    console.log("Conttrol reached here");
-
     return res
       .status(STATUS_CODE.BAD_REQUEST)
       .json({ message: "Invalid Input", errors: parsedInput.error.errors });
