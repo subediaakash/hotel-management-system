@@ -14,9 +14,9 @@ import { format } from "date-fns";
 function BookingForm() {
   const [checkInDate, setCheckInDate] = useState<Date | undefined>();
   const [checkOutDate, setCheckOutDate] = useState<Date | undefined>();
-  const [members, setMembers] = useState<number>(0);
+  const [members, setMembers] = useState<number>(1);
   const [display, setDisplay] = useState<boolean>(false);
-  const [rooms, setRooms] = useState<number>(0);
+  const [rooms, setRooms] = useState<number>(1);
 
   const handleCheckInDateSelect = (selectedDate: Date | undefined) => {
     setCheckInDate(selectedDate);
@@ -33,8 +33,8 @@ function BookingForm() {
     <div>
       <div className="con">
         <form action="">
-          <div className="flex lg:flex-row items-center justify-center border border-solid gap-2 md:flex-col flex-col p-2">
-            <div className="flex gap-1 items-center">
+          <div className="flex lg:flex-row lg:items-center justify-center  gap-2 md:flex-col flex-col p-2">
+            <div className="flex gap-1 items-center border rounded-md bg-white">
               <MdOutlineKingBed
                 size="1.5em"
                 className="font-light"
@@ -43,7 +43,7 @@ function BookingForm() {
               <Input
                 type="text"
                 placeholder="Search for the location"
-                className="border-none focus-visible:ring-0 focus-visible:ring-offset-0"
+                className="border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-blue-500 placeholder:font-medium"
                 style={
                   {
                     "--tw-ring-offset-width": "0px",
@@ -112,60 +112,65 @@ function BookingForm() {
                 </PopoverContent>
               </Popover>
             </div>
-            <div className="members">
+            <div className="members text-blue-500">
               <div className="button relative">
                 <button
+                  className="border p-1 bg-white "
                   onClick={(e) => {
                     e.preventDefault();
                     setDisplay(!display);
                   }}
                 >
-                  <p>
-                    members : {members} room : {rooms}
+                  <p className="font-medium">
+                    Members : {members} Room : {rooms}
                   </p>
                 </button>
 
                 {display && (
-                  <div className="cardCompo absolute top-full left-0 mt-2 p-4 bg-gray-100 shadow-lg -z-20">
-                    <div className="flex gap-5">
+                  <div className="cardCompo absolute top-full left-0 mt-2 p-4 bg-gray-100 shadow-lg z-20">
+                    <div className="flex gap-2 justify-between text-black max-w-64">
                       <p>Members</p>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setMembers(members + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                      <p>{members}</p>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setMembers(Math.max(0, members - 1));
-                        }}
-                      >
-                        -
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setMembers(members + 1);
+                          }}
+                        >
+                          +
+                        </button>
+                        <p>{members}</p>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setMembers(Math.max(0, members - 1));
+                          }}
+                        >
+                          -
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 justify-between text-black max-w-64">
                       <p>Rooms</p>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setRooms(rooms + 1);
-                        }}
-                      >
-                        +
-                      </button>
-                      <p>{rooms}</p>
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setRooms(Math.max(0, rooms - 1));
-                        }}
-                      >
-                        -
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setRooms(rooms + 1);
+                          }}
+                        >
+                          +
+                        </button>
+                        <p>{rooms}</p>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setRooms(Math.max(0, rooms - 1));
+                          }}
+                        >
+                          -
+                        </button>
+                      </div>
                     </div>
                     <div>
                       <Button
@@ -182,7 +187,7 @@ function BookingForm() {
               </div>
             </div>
             <div className="searchButton">
-              <Button>Search</Button>
+              <Button className="bg-blue-700">Search</Button>
             </div>
           </div>
         </form>
