@@ -9,23 +9,22 @@ import {
 
 function DealCard({ hotelImage }: any) {
   return (
-    <div>
+    <div className="max-w-96 font-serif">
       <Card>
         <CardHeader>
-          <CardDescription>
-            <div>
-              <img src={hotelImage} alt="Hotel" className="min-h-64" />
-            </div>
-          </CardDescription>
+          <div className="max-w-full">
+            <img src={hotelImage} alt="Hotel" className="max-h-28 w-full" />
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="flex justify-between">
+          <div className="flex justify-between max-w-md items-center ">
             <div className="left">
               <div className="address-container">
-                <h1>Hotel something</h1>
+                <h1 className="font-bold text-xl">Hotel something</h1>
                 <h2>Address something</h2>
               </div>
-              <div className="ratings">
+              <div className="ratings flex gap-2 items-center">
+                <p className="px-2 border bg-green-400 text-white">4/5</p>
                 <p>1234 ratings</p>
               </div>
             </div>
@@ -34,15 +33,15 @@ function DealCard({ hotelImage }: any) {
                 <p>
                   <del>$2379</del>
                 </p>
-                <p>$1200</p>
-                <p>1 Room per Night</p>
+                <p className="font-bold">$1200</p>
+                <p>
+                  <span className="font-semibold text-gray-500">1 Room</span>{" "}
+                  per night
+                </p>
               </div>
             </div>
           </div>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
     </div>
   );
