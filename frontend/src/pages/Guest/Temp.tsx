@@ -5,7 +5,7 @@ function Temp() {
   return (
     <div>
       {/* <BookingForm /> */}
-      <DealCard />
+      <DealCard hotelImage={"./Bali.jpg"} />
     </div>
   );
 }
