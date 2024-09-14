@@ -1,197 +1,169 @@
-import React, { useState, CSSProperties } from "react";
+import React, { useState } from "react";
 import { Input } from "../ui/input";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { MdOutlineKingBed } from "react-icons/md";
+import { CalendarIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
+import { MdOutlineKingBed, MdPerson } from "react-icons/md";
 import { Calendar } from "../ui/calendar";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@radix-ui/react-popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
+import { cn } from "../../lib/utils";
+import { DateRange } from "react-day-picker";
 
 function BookingForm() {
-  const [checkInDate, setCheckInDate] = useState<Date | undefined>();
-  const [checkOutDate, setCheckOutDate] = useState<Date | undefined>();
-  const [members, setMembers] = useState<number>(1);
-  const [display, setDisplay] = useState<boolean>(false);
-  const [rooms, setRooms] = useState<number>(1);
-
-  const handleCheckInDateSelect = (selectedDate: Date | undefined) => {
-    setCheckInDate(selectedDate);
-    if (checkOutDate && selectedDate && checkOutDate < selectedDate) {
-      setCheckOutDate(undefined);
-    }
-  };
-
-  const handleCheckOutDateSelect = (selectedDate: Date | undefined) => {
-    setCheckOutDate(selectedDate);
-  };
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: new Date(),
+    to: addDays(new Date(), 7),
+  });
+  const [guests, setGuests] = useState<{ adults: number; rooms: number }>({
+    adults: 1,
+    rooms: 1,
+  });
 
   return (
-    <div>
-      <div className="con">
-        <form action="">
-          <div className="flex lg:flex-row lg:items-center justify-center  gap-2 md:flex-col flex-col p-2">
-            <div className="flex gap-1 items-center border rounded-md bg-white">
+    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+      <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <div className="relative">
               <MdOutlineKingBed
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
                 size="1.5em"
-                className="font-light"
-                strokeWidth={0.1}
               />
               <Input
                 type="text"
-                placeholder="Search for the location"
-                className="border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-blue-500 placeholder:font-medium"
-                style={
-                  {
-                    "--tw-ring-offset-width": "0px",
-                  } as CSSProperties & { "--tw-ring-offset-width": string }
-                }
+                placeholder="Where are you going?"
+                className="pl-10 pr-4 py-2 w-full border-2 border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500"
               />
             </div>
-            <div className="z-20">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={`w-[240px] pl-3 text-left font-normal ${
-                      !checkInDate && "text-muted-foreground"
-                    }`}
-                  >
-                    {checkInDate ? (
-                      format(checkInDate, "PPP")
-                    ) : (
-                      <span>Check In Date</span>
-                    )}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    className="bg-white z-20"
-                    mode="single"
-                    selected={checkInDate}
-                    onSelect={handleCheckInDateSelect}
-                    disabled={(date) => date < new Date()}
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="z-20">
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={`w-[240px] pl-3 text-left font-normal ${
-                      !checkOutDate && "text-muted-foreground"
-                    }`}
-                  >
-                    {checkOutDate ? (
-                      format(checkOutDate, "PPP")
-                    ) : (
-                      <span>Check Out Date</span>
-                    )}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    className="bg-white z-10"
-                    mode="single"
-                    selected={checkOutDate}
-                    onSelect={handleCheckOutDateSelect}
-                    disabled={(date) =>
-                      date < new Date() ||
-                      (checkInDate ? date <= checkInDate : false)
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="members text-blue-500">
-              <div className="button relative">
-                <button
-                  className="border p-1 bg-white "
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDisplay(!display);
-                  }}
-                >
-                  <p className="font-medium">
-                    Members : {members} Room : {rooms}
-                  </p>
-                </button>
+          </div>
 
-                {display && (
-                  <div className="cardCompo absolute top-full left-0 mt-2 p-4 bg-gray-100 shadow-lg z-20">
-                    <div className="flex gap-2 justify-between text-black max-w-64">
-                      <p>Members</p>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setMembers(members + 1);
-                          }}
-                        >
-                          +
-                        </button>
-                        <p>{members}</p>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setMembers(Math.max(0, members - 1));
-                          }}
-                        >
-                          -
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex gap-2 justify-between text-black max-w-64">
-                      <p>Rooms</p>
-                      <div className="flex gap-2">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setRooms(rooms + 1);
-                          }}
-                        >
-                          +
-                        </button>
-                        <p>{rooms}</p>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setRooms(Math.max(0, rooms - 1));
-                          }}
-                        >
-                          -
-                        </button>
-                      </div>
-                    </div>
-                    <div>
+          <div className="flex-1">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className={cn(
+                    "w-full justify-start text-left font-normal",
+                    !date && "text-muted-foreground"
+                  )}
+                >
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  {date?.from ? (
+                    date.to ? (
+                      <>
+                        {format(date.from, "LLL dd, y")} -{" "}
+                        {format(date.to, "LLL dd, y")}
+                      </>
+                    ) : (
+                      format(date.from, "LLL dd, y")
+                    )
+                  ) : (
+                    <span>Pick a date range</span>
+                  )}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  initialFocus
+                  mode="range"
+                  defaultMonth={date?.from}
+                  selected={date}
+                  onSelect={setDate}
+                  numberOfMonths={2}
+                  disabled={(date: any) => date < new Date()}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          <div className="flex-1">
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start text-left font-normal"
+                >
+                  <MdPerson className="mr-2 h-4 w-4" />
+                  {guests.adults} {guests.adults === 1 ? "Guest" : "Guests"},{" "}
+                  {guests.rooms} {guests.rooms === 1 ? "Room" : "Rooms"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80 p-4" align="start">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span>Adults</span>
+                    <div className="flex items-center space-x-2">
                       <Button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setDisplay(false);
-                        }}
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          setGuests((prev) => ({
+                            ...prev,
+                            adults: Math.max(1, prev.adults - 1),
+                          }))
+                        }
                       >
-                        Submit
+                        -
+                      </Button>
+                      <span>{guests.adults}</span>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          setGuests((prev) => ({
+                            ...prev,
+                            adults: prev.adults + 1,
+                          }))
+                        }
+                      >
+                        +
                       </Button>
                     </div>
                   </div>
-                )}
-              </div>
-            </div>
-            <div className="searchButton">
-              <Button className="bg-blue-700">Search</Button>
-            </div>
+                  <div className="flex justify-between items-center">
+                    <span>Rooms</span>
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          setGuests((prev) => ({
+                            ...prev,
+                            rooms: Math.max(1, prev.rooms - 1),
+                          }))
+                        }
+                      >
+                        -
+                      </Button>
+                      <span>{guests.rooms}</span>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() =>
+                          setGuests((prev) => ({
+                            ...prev,
+                            rooms: prev.rooms + 1,
+                          }))
+                        }
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
-        </form>
-      </div>
+        </div>
+
+        <Button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+        >
+          <MagnifyingGlassIcon className="mr-2 h-4 w-4" />
+          Search
+        </Button>
+      </form>
     </div>
   );
 }
