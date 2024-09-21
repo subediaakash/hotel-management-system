@@ -8,8 +8,12 @@ function GuestStay({
   country: string;
 }) {
   return (
-    <div className="flex flex-col items-start justify-center  border max-w-fit rounded-lg">
-      <img src={image} className="max-w-56 " alt={`${cityName}, ${country}`} />
+    <div className="flex flex-col items-start justify-center  rounded-lg border max-w-fit roun">
+      <img
+        src={image}
+        className="max-w-60 max-h-56 rounded-lg "
+        alt={`${cityName}, ${country}`}
+      />
       <div className="p-2">
         <h2 className="text-gray-500 font-mono ">{cityName}</h2>
         <p>{country}</p>

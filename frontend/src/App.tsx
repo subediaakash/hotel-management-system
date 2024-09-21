@@ -2,8 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import MainGuestPage from "./pages/Guest/MainGuestPage";
 import Bookings from "./pages/Guest/Bookings";
 import Deals from "./pages/Guest/Deals";
-import Payments from "./pages/Guest/Payments";
-import Conversation from "./pages/Guest/Conversation";
 import SignupForm from "./components/auth/SignupForm";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
@@ -50,9 +48,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/payments" element={<Payments />} />
         <Route path="/book" element={<PaymentPage />} />
-        <Route path="/conversations" element={<Conversation />} />
         <Route path="/temp" element={<Temp />} />
       </Routes>
     </Router>

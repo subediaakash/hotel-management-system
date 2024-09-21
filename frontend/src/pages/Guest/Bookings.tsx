@@ -1,7 +1,5 @@
 import BookingList from "../../components/GuestComponents/BookingList";
-import GuestFooter from "../../components/GuestComponents/GuestFooter";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
-import NewBookingAdv from "../../components/GuestComponents/NewBookingAdv";
 
 export default function Bookings() {
   return (
@@ -10,10 +8,8 @@ export default function Bookings() {
         <div>
           <GuestNavbar />
           <BookingList />
-          <NewBookingAdv />
         </div>
       </div>
-      <GuestFooter />
     </div>
   );
 }

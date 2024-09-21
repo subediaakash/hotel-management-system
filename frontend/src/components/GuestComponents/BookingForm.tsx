@@ -20,7 +20,7 @@ function BookingForm() {
   });
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg">
+    <div className="max-w-7xl mx-auto p-6 bg-white rounded-xl shadow-lg">
       <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
