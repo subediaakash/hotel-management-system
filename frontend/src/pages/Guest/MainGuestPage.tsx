@@ -34,7 +34,7 @@ function MainGuestPage() {
           <BookingForm />
         </div>
         <div className="outer-div p-3 flex justify-center items-center flex-col ">
-          <p className="font-bold lg:text-xl text-base font-Oswald ">
+          <p className="font-bold lg:text-xl text-base font-sans ">
             EXPLORE STAYS IN TRENDING LOCATIONS
           </p>
           <div className="relative max-w-4xl p-3">
