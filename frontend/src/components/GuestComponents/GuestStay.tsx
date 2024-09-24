@@ -15,7 +15,7 @@ function GuestStay({
         alt={`${cityName}, ${country}`}
       />
       <div className="p-2">
-        <h2 className="text-gray-500 font-mono ">{cityName}</h2>
+        <h2 className=" font-serif font-bold ">{cityName}</h2>
         <p>{country}</p>
       </div>
     </div>
