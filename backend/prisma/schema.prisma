@@ -29,9 +29,12 @@ model Hotel {
   name           String
   location       Locations
   incomingGuests GuestHotel[]
-  bookings       Booking[]
-  NewDeal        NewDeal[]
+  hotelImage     String
+
+  NewDeal NewDeal[]
+  Booking Booking[]
 }
+
 
 model GuestHotel {
   id      Int   @default(autoincrement())
