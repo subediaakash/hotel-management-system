@@ -1,11 +1,18 @@
 import React from "react";
-import TempComponent from "../../components/GuestComponents/TempComp";
-import AdvertisementCard from "../../components/GuestComponents/AdvertisementCard";
+import MainhotelCard from "../../components/GuestComponents/MainhotelCard";
 
 function Temp() {
   return (
     <div>
-      <AdvertisementCard />
+      <MainhotelCard
+        hotelImage="beach-advertisement.avif"
+        hotelAddress="Kuwait City"
+        hotelPrice={2500}
+        hotelFeatures={["Meal Included", "Swimming"]}
+        hotelRating={3}
+        hotelName="The Taj"
+        hotelDiscountedPrice={1000}
+      />
     </div>
   );
 }

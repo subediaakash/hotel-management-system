@@ -2,6 +2,7 @@ import { useRef } from "react";
 import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import GuestStay from "../../components/GuestComponents/GuestStay";
+import AdvertisementCard from "../../components/GuestComponents/AdvertisementCard";
 
 function MainGuestPage() {
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -24,7 +25,7 @@ function MainGuestPage() {
   };
 
   return (
-    <div className="flex justify-center gap-2  lg:items-center flex-col bg-[#fcfcfa]">
+    <div className="flex justify-center gap-2  lg:items-center flex-col bg-[#fcfcfa] ">
       <div className="font-Roboto">
         <div className="h-[10vh] flex items-center justify-center">
           <GuestNavbar />
@@ -33,9 +34,9 @@ function MainGuestPage() {
         <div className="min-h-52 bg-cover bg-no-repeat flex flex-col justify-center items-start p-2">
           <BookingForm />
         </div>
-        <div className="outer-div p-3 flex justify-center items-center flex-col ">
-          <p className="font-bold lg:text-xl text-base font-sans ">
-            EXPLORE STAYS IN TRENDING LOCATIONS
+        <div className="outer-div p-3 flex  flex-col ">
+          <p className="font-bold lg:text-xl text-base font-serif ">
+            Explore stays in trending location
           </p>
           <div className="relative max-w-4xl p-3">
             <button
@@ -72,6 +73,14 @@ function MainGuestPage() {
             </button>
           </div>
         </div>
+      </div>
+      <div>
+        <div className="p-3 flex  flex-col">
+          <p className="font-bold lg:text-xl text-base  font-serif">
+            Explore world with us
+          </p>
+        </div>
+        <AdvertisementCard />
       </div>
     </div>
   );
