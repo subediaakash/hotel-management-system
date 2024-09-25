@@ -1,5 +1,3 @@
-import React from "react";
-
 interface MainHotelCardProps {
   hotelImage: string;
   hotelName: string;
@@ -11,7 +9,7 @@ interface MainHotelCardProps {
   isRefundable?: boolean;
 }
 
-function MainhotelCard({
+function MainHotelCard({
   hotelImage,
   hotelName,
   hotelAddress,
@@ -30,12 +28,14 @@ function MainhotelCard({
           alt={hotelName}
         />
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 p-4">
+      <div className="flex flex-col  sm:flex-row gap-4 sm:gap-8 p-4">
         <div className="flex flex-col justify-between flex-grow">
           <div className="nameAndFeatures">
             <h2 className="font-bold text-lg mb-1">{hotelName}</h2>
             <p className="text-sm text-gray-600 mb-2">{hotelAddress}</p>
-            <ul className="flex flex-wrap gap-2 text-xs text-gray-600 mb-3">
+
+            {/* Set a fixed width here */}
+            <ul className="flex flex-wrap gap-2 w-[200px] text-xs text-gray-600 mb-3">
               {hotelFeatures.map((feature, index) => (
                 <li key={index} className="bg-gray-100 px-2 py-1 rounded">
                   {feature}
@@ -71,4 +71,4 @@ function MainhotelCard({
   );
 }
 
-export default MainhotelCard;
+export default MainHotelCard;

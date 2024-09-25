@@ -13,6 +13,15 @@ function Temp() {
         hotelName="The Taj"
         hotelDiscountedPrice={1000}
       />
+      <MainhotelCard
+        hotelImage="qatar.jpg"
+        hotelAddress="Bangalore"
+        hotelPrice={2500}
+        hotelFeatures={["Meal Included", "Swimming", "Dinner"]}
+        hotelRating={3}
+        hotelName="The Taj"
+        hotelDiscountedPrice={1000}
+      />
     </div>
   );
 }
