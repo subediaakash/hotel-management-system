@@ -2,8 +2,12 @@ import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function HotelSearch() {
+  const stateLocation = useLocation();
+  const { initialDateRange, initialGuest, initialLocation } =
+    stateLocation.state || {};
   const [bookingData, setBookingData] = useState({
     location: "Tokyo",
     dateRange: {
@@ -22,9 +26,9 @@ function HotelSearch() {
       </div>
       <div className="max-w-6xl">
         <BookingForm
-          initialLocation={bookingData.location}
-          initialDateRange={bookingData.dateRange}
-          initialGuests={bookingData.guests}
+          initialLocation={initialLocation}
+          initialDateRange={initialDateRange}
+          initialGuests={initialGuest}
         />
       </div>
       <div className="HotelCards p-2 ">

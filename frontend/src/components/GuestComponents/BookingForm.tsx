@@ -13,6 +13,11 @@ interface BookingFormProps {
   initialLocation?: string;
   initialDateRange?: DateRange;
   initialGuests?: { adults: number; rooms: number };
+  onSubmit?: (data: {
+    location: string;
+    date: DateRange | undefined;
+    guests: { adults: number; rooms: number };
+  }) => void;
 }
 
 function BookingForm({
@@ -22,10 +27,22 @@ function BookingForm({
     to: addDays(new Date(), 7),
   },
   initialGuests = { adults: 1, rooms: 1 },
+  onSubmit = (data: {
+    location: string;
+    date: DateRange | undefined;
+    guests: { adults: number; rooms: number };
+  }) => {
+    console.log("Form submitted", data);
+  },
 }: BookingFormProps) {
   const [location, setLocation] = useState(initialLocation);
   const [date, setDate] = useState<DateRange | undefined>(initialDateRange);
   const [guests, setGuests] = useState(initialGuests);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit({ location, date, guests });
+  };
 
   return (
     <>
@@ -35,7 +52,7 @@ function BookingForm({
             Search Hotels
           </p>
         </div>
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">

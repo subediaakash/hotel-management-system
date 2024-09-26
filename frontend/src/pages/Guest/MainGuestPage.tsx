@@ -3,8 +3,11 @@ import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import GuestStay from "../../components/GuestComponents/GuestStay";
 import AdvertisementCard from "../../components/GuestComponents/AdvertisementCard";
+import { DateRange } from "react-day-picker";
+import { useNavigate } from "react-router-dom";
 
 function MainGuestPage() {
+  const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -23,7 +26,10 @@ function MainGuestPage() {
       });
     }
   };
-
+  const initialDateRange: DateRange = {
+    from: new Date(2024, 9, 1), // Set 'from' to October 1, 2024
+    to: new Date(2024, 9, 7), // Set 'to' to October 7, 2024
+  };
   return (
     <div className="flex justify-center gap-2  lg:items-center flex-col bg-[#fcfcfa] ">
       <div className="font-Roboto">
@@ -32,7 +38,20 @@ function MainGuestPage() {
         </div>
 
         <div className="min-h-52 bg-cover bg-no-repeat flex flex-col justify-center items-start p-2">
-          <BookingForm />
+          <BookingForm
+            initialLocation="Kathmandu"
+            initialDateRange={initialDateRange}
+            initialGuests={{ adults: 1, rooms: 1 }}
+            onSubmit={(data) => {
+              navigate("/hotelSearch", {
+                state: {
+                  initialLocation: data.location,
+                  initialGuest: data.guests,
+                  initialDateRange: data.date,
+                },
+              });
+            }}
+          />
         </div>
         <div className="outer-div p-3 flex  flex-col ">
           <p className="font-bold lg:text-xl text-base font-serif ">
