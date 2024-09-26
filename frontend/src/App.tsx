@@ -5,9 +5,9 @@ import Deals from "./pages/Guest/Deals";
 import SignupForm from "./components/auth/SignupForm";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
-import PassportForm from "./components/GuestComponents/PassportForm";
 import PaymentPage from "./pages/Guest/PaymentPage";
 import Temp from "./pages/Guest/Temp";
+import HotelSearch from "./pages/Guest/HotelSearch";
 
 function App() {
   return (
@@ -41,13 +41,14 @@ function App() {
           }
         />
         <Route
-          path="/passportsetup"
+          path="/hotelSearch"
           element={
             <ProtectedRoute>
-              <PassportForm />
+              <HotelSearch />
             </ProtectedRoute>
           }
         />
+
         <Route path="/book" element={<PaymentPage />} />
         <Route path="/temp" element={<Temp />} />
       </Routes>

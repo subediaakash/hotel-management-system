@@ -2,7 +2,6 @@ import { Request as ExpressRequest, Response } from "express";
 import { prisma } from "../../utils/Prisma";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import path from "path";
 
 interface RequestWithFile extends ExpressRequest {
   file?: Express.Multer.File;

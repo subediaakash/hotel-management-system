@@ -9,15 +9,23 @@ import { format, addDays } from "date-fns";
 import { cn } from "../../lib/utils";
 import { DateRange } from "react-day-picker";
 
-function BookingForm() {
-  const [date, setDate] = useState<DateRange | undefined>({
+interface BookingFormProps {
+  initialLocation?: string;
+  initialDateRange?: DateRange;
+  initialGuests?: { adults: number; rooms: number };
+}
+
+function BookingForm({
+  initialLocation = "",
+  initialDateRange = {
     from: new Date(),
     to: addDays(new Date(), 7),
-  });
-  const [guests, setGuests] = useState<{ adults: number; rooms: number }>({
-    adults: 1,
-    rooms: 1,
-  });
+  },
+  initialGuests = { adults: 1, rooms: 1 },
+}: BookingFormProps) {
+  const [location, setLocation] = useState(initialLocation);
+  const [date, setDate] = useState<DateRange | undefined>(initialDateRange);
+  const [guests, setGuests] = useState(initialGuests);
 
   return (
     <>
@@ -39,6 +47,8 @@ function BookingForm() {
                   type="text"
                   placeholder="Where are you going?"
                   className="pl-10 pr-4 py-2 w-full border-2 border-gray-200 rounded-md focus:border-blue-500 focus:ring-blue-500"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                 />
               </div>
             </div>
