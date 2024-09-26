@@ -1,12 +1,10 @@
-import React from "react";
-
 function AdvertisementCard() {
   return (
     <div className="flex flex-wrap gap-2  p-2">
       <div className="free-cancelation border w-full md:w-auto">
         <img
           src="./scenic-image.webp"
-          className="object-cover  h-auto aspect-video lg:w-[29vw] md:w-[718px]  object-center md:min-h-[227px] md:max-h-[227px] "
+          className="object-cover  h-auto aspect-video lg:w-[24vw] md:w-[718px]  object-center md:min-h-[227px] md:max-h-[227px] "
           alt="Scenic view"
         />
         <div>
