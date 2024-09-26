@@ -31,10 +31,11 @@ model Hotel {
   incomingGuests GuestHotel[]
   hotelImage     String
 
-  NewDeal NewDeal[]
-  Booking Booking[]
+  NewDeal  NewDeal[]
+  Booking  Booking[]
+  features String[]
+  ratings  Int       @default(4)
 }
-
 
 model GuestHotel {
   id      Int   @default(autoincrement())

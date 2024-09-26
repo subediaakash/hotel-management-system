@@ -29,6 +29,8 @@ CREATE TABLE "Hotel" (
     "name" TEXT NOT NULL,
     "location" "Locations" NOT NULL,
     "hotelImage" TEXT NOT NULL,
+    "features" TEXT[],
+    "ratings" INTEGER NOT NULL DEFAULT 4,
 
     CONSTRAINT "Hotel_pkey" PRIMARY KEY ("id")
 );
