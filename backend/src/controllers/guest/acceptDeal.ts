@@ -28,7 +28,6 @@ export const acceptDeal = async (req: Request, res: Response) => {
       data: {
         date: new Date(date),
         checkoutDate: new Date(checkoutDate),
-        type: type,
         hotelId: hotelId,
         guestId: userId,
         location: location,

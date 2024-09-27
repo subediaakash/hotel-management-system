@@ -9,7 +9,7 @@ const bookingHistory = async (req: Request, res: Response) => {
         guestId: res.locals.user.id,
       },
     });
-    return res.status(STATUS_CODE.FOUND).json({ bookingHistory });
+    return res.status(STATUS_CODE.OK).json(bookingHistory);
   } catch (error) {
     console.error("Error fetching booking history:", error);
     return res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({

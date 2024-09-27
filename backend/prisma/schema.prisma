@@ -80,7 +80,6 @@ model Booking {
   id           Int       @id @default(autoincrement())
   date         DateTime
   checkoutDate DateTime
-  type         GuestType
   status       Status?   @default(notVerified)
   location     Locations
   bookedBy     Guest     @relation(fields: [guestId], references: [id])

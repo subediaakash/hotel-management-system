@@ -41,24 +41,16 @@ export const newBooking = async (req: Request, res: Response) => {
       data: {
         date: new Date(newBooking.date),
         checkoutDate: new Date(newBooking.checkoutDate),
-        type: newBooking.type,
         location: newBooking.location,
         guestId: guestId,
         hotelId: hotelId,
-      },
-    });
-
-    const newGuestHotelRelation = await prisma.guestHotel.create({
-      data: {
-        guestId: guestId,
-        hotelId: hotelId,
+        cost: newBooking.cost,
       },
     });
 
     return res.status(STATUS_CODE.CREATED).json({
       msg: "Booking created successfully",
       booking: newBookingRequest,
-      guestHotelRelation: newGuestHotelRelation,
     });
   } catch (error) {
     console.error("Error creating booking:", error);
