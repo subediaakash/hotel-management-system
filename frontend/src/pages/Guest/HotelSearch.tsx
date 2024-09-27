@@ -1,24 +1,39 @@
 import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
-import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import MainHotelCardLoading from "../../components/loadingComponents/MainHotelCardLoading";
+import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
 
 function HotelSearch() {
   const stateLocation = useLocation();
   const { initialDateRange, initialGuest, initialLocation } =
     stateLocation.state || {};
   const [bookingData, setBookingData] = useState({
-    location: "Tokyo",
-    dateRange: {
-      from: new Date(2024, 5, 15), // June 15, 2024
-      to: new Date(2024, 5, 22), // June 22, 2024
-    },
-    guests: {
-      adults: 2,
-      rooms: 1,
-    },
+    location: initialLocation,
+    dateRange: initialDateRange,
+    guests: initialGuest,
   });
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ["listOfHotels"],
+    queryFn: async () => {
+      const response = await axios.get(
+        `http://localhost:5000/api/guest/hotels?location=${initialLocation}`,
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.data.data;
+    },
+    enabled: !!bookingData.location, // Only run the query if the location is set
+  });
+
   return (
     <div>
       <div className="flex justify-center items-center">
@@ -26,30 +41,33 @@ function HotelSearch() {
       </div>
       <div className="max-w-6xl">
         <BookingForm
-          initialLocation={initialLocation}
-          initialDateRange={initialDateRange}
-          initialGuests={initialGuest}
+          initialLocation={bookingData.location}
+          initialDateRange={bookingData.dateRange}
+          initialGuests={bookingData.guests}
         />
       </div>
+
       <div className="HotelCards p-2 ">
-        <MainHotelCard
-          hotelImage="beach-advertisement.avif"
-          hotelAddress="Kuwait City"
-          hotelPrice={2500}
-          hotelFeatures={["Meal Included", "Swimming"]}
-          hotelRating={3}
-          hotelName="The Taj"
-          hotelDiscountedPrice={1000}
-        />
-        <MainHotelCard
-          hotelImage="qatar.jpg"
-          hotelAddress="Bangalore"
-          hotelPrice={2500}
-          hotelFeatures={["Meal Included", "Swimming", "Dinner"]}
-          hotelRating={3}
-          hotelName="The Taj"
-          hotelDiscountedPrice={1000}
-        />
+        {isPending && (
+          <div>
+            <MainHotelCardLoading />
+          </div>
+        )}
+        {error && <div>No Hotels Found</div>}
+        {data && data.length === 0 && <div>No hotels found in this area.</div>}
+        {data &&
+          data.map((hotel: any) => (
+            <MainHotelCard
+              key={hotel.id}
+              hotelImage={hotel.hotelImage}
+              hotelAddress={hotel.location}
+              hotelPrice={1000}
+              hotelFeatures={hotel.features}
+              hotelRating={hotel.ratings}
+              hotelName={hotel.name}
+              hotelDiscountedPrice={500}
+            />
+          ))}
       </div>
     </div>
   );
