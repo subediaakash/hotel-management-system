@@ -1,9 +1,9 @@
-import BookingForm from "../../components/GuestComponents/BookingForm";
-import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+import BookingForm from "../../components/GuestComponents/BookingForm";
+import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import MainHotelCardLoading from "../../components/loadingComponents/MainHotelCardLoading";
 import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
 
@@ -17,11 +17,11 @@ function HotelSearch() {
     guests: initialGuest,
   });
 
-  const { isPending, error, data } = useQuery({
-    queryKey: ["listOfHotels"],
+  const { isPending, error, data, refetch } = useQuery({
+    queryKey: ["listOfHotels", bookingData.location],
     queryFn: async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/guest/hotels?location=${initialLocation}`,
+        `http://localhost:5000/api/guest/hotels?location=${bookingData.location}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -31,8 +31,17 @@ function HotelSearch() {
       );
       return response.data.data;
     },
-    enabled: !!bookingData.location, // Only run the query if the location is set
+    enabled: !!bookingData.location,
   });
+
+  const handleBookingSubmit = (formValues: any) => {
+    setBookingData({
+      location: formValues.location,
+      dateRange: formValues.dateRange,
+      guests: formValues.guests,
+    });
+    refetch();
+  };
 
   return (
     <div>
@@ -44,16 +53,17 @@ function HotelSearch() {
           initialLocation={bookingData.location}
           initialDateRange={bookingData.dateRange}
           initialGuests={bookingData.guests}
+          onSubmit={handleBookingSubmit}
         />
       </div>
 
-      <div className="HotelCards p-2 ">
+      <div className="HotelCards p-2">
         {isPending && (
           <div>
             <MainHotelCardLoading />
           </div>
         )}
-        {error && <div>No Hotels Found</div>}
+        {error && <div>No Hotels were found</div>}
         {data && data.length === 0 && <div>No hotels found in this area.</div>}
         {data &&
           data.map((hotel: any) => (

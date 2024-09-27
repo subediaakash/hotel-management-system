@@ -1,27 +1,15 @@
-import React from "react";
-import MainhotelCard from "../../components/GuestComponents/MainhotelCard";
+import BookingSummary from "../../components/GuestComponents/BookingSummary";
+import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
+import HotelPage from "../../components/GuestComponents/HotelPage";
 
 function Temp() {
   return (
     <div>
-      <MainhotelCard
-        hotelImage="beach-advertisement.avif"
-        hotelAddress="Kuwait City"
-        hotelPrice={2500}
-        hotelFeatures={["Meal Included", "Swimming"]}
-        hotelRating={3}
-        hotelName="The Taj"
-        hotelDiscountedPrice={1000}
-      />
-      <MainhotelCard
-        hotelImage="qatar.jpg"
-        hotelAddress="Bangalore"
-        hotelPrice={2500}
-        hotelFeatures={["Meal Included", "Swimming", "Dinner"]}
-        hotelRating={3}
-        hotelName="The Taj"
-        hotelDiscountedPrice={1000}
-      />
+      <GuestNavbar />
+      <div className="flex items-center my-auto justify-center flex-wrap">
+        <HotelPage />
+        <BookingSummary numberOfAdults={2} />
+      </div>
     </div>
   );
 }
