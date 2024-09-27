@@ -6,8 +6,8 @@ import SignupForm from "./components/auth/SignupForm";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
 import PaymentPage from "./pages/Guest/PaymentPage";
-import Temp from "./pages/Guest/Temp";
 import HotelSearch from "./pages/Guest/HotelSearch";
+import HotelBookingPage from "./pages/Guest/HotelBookingPage";
 
 function App() {
   return (
@@ -50,7 +50,7 @@ function App() {
         />
 
         <Route path="/book" element={<PaymentPage />} />
-        <Route path="/temp" element={<Temp />} />
+        <Route path="/hotelBook" element={<HotelBookingPage />} />
       </Routes>
     </Router>
   );

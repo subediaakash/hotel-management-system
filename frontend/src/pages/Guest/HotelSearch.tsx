@@ -1,21 +1,51 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import MainHotelCardLoading from "../../components/loadingComponents/MainHotelCardLoading";
 import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
 
 function HotelSearch() {
+  function calculateTotalDays(from: Date, to: Date): number {
+    console.log("Start Date:", from);
+    console.log("End Date:", to);
+
+    if (!(from instanceof Date) || !(to instanceof Date)) {
+      console.error(
+        "Invalid date input: Start or end date is not a Date object"
+      );
+      return 0;
+    }
+
+    if (isNaN(from.getTime()) || isNaN(to.getTime())) {
+      console.error("Invalid date input: Unable to parse dates");
+      return 0;
+    }
+
+    const diffInMilliseconds = to.getTime() - from.getTime();
+    const totalDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+    console.log("Calculated Total Days:", totalDays);
+
+    return Math.floor(totalDays);
+  }
+
   const stateLocation = useLocation();
   const { initialDateRange, initialGuest, initialLocation } =
     stateLocation.state || {};
+
   const [bookingData, setBookingData] = useState({
     location: initialLocation,
     dateRange: initialDateRange,
     guests: initialGuest,
   });
+  console.log(bookingData.dateRange);
+
+  const totalDays = bookingData.dateRange
+    ? calculateTotalDays(bookingData.dateRange.from, bookingData.dateRange.to)
+    : 0;
 
   const { isPending, error, data, refetch } = useQuery({
     queryKey: ["listOfHotels", bookingData.location],
@@ -67,16 +97,36 @@ function HotelSearch() {
         {data && data.length === 0 && <div>No hotels found in this area.</div>}
         {data &&
           data.map((hotel: any) => (
-            <MainHotelCard
+            <Link
               key={hotel.id}
-              hotelImage={hotel.hotelImage}
-              hotelAddress={hotel.location}
-              hotelPrice={1000}
-              hotelFeatures={hotel.features}
-              hotelRating={hotel.ratings}
-              hotelName={hotel.name}
-              hotelDiscountedPrice={500}
-            />
+              to={{
+                pathname: "/hotelBook",
+              }}
+              state={{
+                hotelImage: hotel.hotelImage,
+                hotelName: hotel.name,
+                hotelAddress: hotel.location,
+                isRefundable: hotel.isRefundable,
+                hotelRating: hotel.ratings,
+                hotelFeatures: hotel.features,
+                hotelPrice: 1000,
+                hotelDiscountedPrice: 500,
+                dateRange: bookingData.dateRange,
+                guestDetails: bookingData.guests,
+                totalDays: totalDays,
+              }}
+            >
+              <MainHotelCard
+                hotelImage={hotel.hotelImage}
+                hotelAddress={hotel.location}
+                hotelPrice={1000}
+                hotelFeatures={hotel.features}
+                hotelRating={hotel.ratings}
+                hotelName={hotel.name}
+                hotelDiscountedPrice={500}
+                totalDate={totalDays}
+              />
+            </Link>
           ))}
       </div>
     </div>

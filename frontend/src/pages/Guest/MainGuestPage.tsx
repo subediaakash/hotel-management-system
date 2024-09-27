@@ -27,8 +27,8 @@ function MainGuestPage() {
     }
   };
   const initialDateRange: DateRange = {
-    from: new Date(2024, 9, 1), // Set 'from' to October 1, 2024
-    to: new Date(2024, 9, 7), // Set 'to' to October 7, 2024
+    from: new Date(2024, 9, 1), 
+    to: new Date(2024, 9, 7), 
   };
   return (
     <div className="flex justify-center gap-2  lg:items-center flex-col bg-[#fcfcfa] ">

@@ -1,3 +1,5 @@
+import React from "react";
+import { DateRange } from "react-day-picker";
 import {
   Card,
   CardContent,
@@ -8,24 +10,50 @@ import {
 } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
 import { CalendarDays, Users, Bath, BadgeDollarSign } from "lucide-react";
-
-interface DateRange {
-  from?: Date;
-  to?: Date;
-}
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../../components/ui/drawer";
+import PaymentPortal from "./PaymentPortal";
 
 interface BookingSummaryProps {
   numberOfAdults: number;
+  numberOfRooms: number;
+  dateRange: DateRange;
+  totalDays: number;
+  hotelPrice: number;
+  hotelDiscountedPrice: number;
 }
 
-function BookingSummary({ numberOfAdults }: BookingSummaryProps) {
+function BookingSummary({
+  numberOfAdults,
+  numberOfRooms,
+  dateRange,
+  totalDays,
+  hotelPrice,
+  hotelDiscountedPrice,
+}: BookingSummaryProps) {
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
   return (
-    <section className="w-full   lg:max-w-3xl">
+    <section className="w-full lg:max-w-3xl">
       <div className="container px-4 md:px-6">
-        <h2 className="text-xl lg:text-2xl font-bold tracking-tighter  mb-8 text-amber-800">
+        <h2 className="text-xl lg:text-2xl font-bold tracking-tighter mb-8 text-amber-800">
           Your Booking Summary
         </h2>
-        <Card className="lg:text-xl">
+        <Card className="lg:text-base">
           <CardHeader>
             <CardTitle className="text-amber-700">Booking Details</CardTitle>
             <CardDescription>
@@ -40,20 +68,51 @@ function BookingSummary({ numberOfAdults }: BookingSummaryProps) {
               </div>
               <div className="flex items-center">
                 <CalendarDays className="mr-2 h-4 w-4" />
-                <span>Date: </span>
+                {/* @ts-ignore */}
+                <span>Check-in: {formatDate(dateRange.from)}</span>
+              </div>
+              <div className="flex items-center">
+                <CalendarDays className="mr-2 h-4 w-4" />
+                {/* @ts-ignore */}
+                <span>Check-out: {formatDate(dateRange.to)}</span>
+              </div>
+              <div className="flex items-center">
+                <CalendarDays className="mr-2 h-4 w-4" />
+                <span>Total nights: {totalDays}</span>
               </div>
               <div className="flex items-center">
                 <Bath className="mr-2 h-4 w-4" />
-                <span>Rooms: </span>
+                <span>Rooms: {numberOfRooms}</span>
               </div>
             </div>
-            <div className="w-[50%] flex gap-2 items-center">
-              <BadgeDollarSign className="mr-2 h-4 w-4" />
-              <p>Price : </p>
+            <div className="lg:w-[50%] flex flex-col gap-2 ">
+              <div className="flex items-center">
+                <p className="text-base">
+                  <span className="font-semibold">Price :</span> ${hotelPrice}{" "}
+                  per night
+                </p>
+              </div>
+              <p className="text-base">
+                <span className="font-semibold">Discount :</span>{" "}
+                {hotelDiscountedPrice} per night
+              </p>
+              <p className="text-base border lg:w-fit w-full lg:p-2 p-1 font-semibold bg-blue-500 text-white">
+                Total Price : ${hotelDiscountedPrice * totalDays}
+              </p>
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Confirm Booking</Button>
+            <Drawer>
+              <DrawerTrigger>
+                <Button>Confirm Booking</Button>
+              </DrawerTrigger>
+              <DrawerContent className="flex justify-center items-center flex-col">
+                <PaymentPortal
+                  nights={totalDays}
+                  pricePerNight={hotelDiscountedPrice}
+                />
+              </DrawerContent>
+            </Drawer>
           </CardFooter>
         </Card>
       </div>
