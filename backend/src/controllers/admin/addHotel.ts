@@ -9,6 +9,7 @@ interface RequestWithFile extends ExpressRequest {
 
 export const addHotel = async (req: RequestWithFile, res: Response) => {
   const { name, location, features } = req.body;
+  const parsedFeatures = JSON.parse(features);
   if (!req.file) {
     return res.status(400).json({ msg: "Hotel image is required" });
   }
@@ -42,7 +43,7 @@ export const addHotel = async (req: RequestWithFile, res: Response) => {
       data: {
         name,
         location,
-        features,
+        features: parsedFeatures,
         hotelImage: hotelImageUrl,
       },
     });
