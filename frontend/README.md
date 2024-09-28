@@ -1,30 +1,74 @@
-# React + TypeScript + Vite
+ # Hotel Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This Hotel Management System is a full-stack application designed to provide users with a seamless experience for searching and booking hotels in various locations. Key features include:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Search for Hotels**: Users can search for hotels across different locations.
+- **Room Booking**: Book rooms based on the number of people visiting.
+- **Pseudo Payment System**: Make payments using a credit card simulation.
+- **Booking History**: View a record of all past bookings.
+- **Admin Features**: Admin users can manage locations and add new hotels.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **User**:
+  - Search for hotels by location.
+  - Book rooms based on group size.
+  - Make pseudo payments via a credit card form.
+  - View booking history for past reservations.
+  
+- **Admin**:
+  - Add new hotel locations.
+  - Manage existing hotels (add, update, or delete).
 
-- Configure the top-level `parserOptions` property like this:
+## Tech Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- **Frontend**:
+  - React
+  - React Query (for data fetching and caching)
+  - Lucide-react-icons (for icons)
+  - Shacn (for styling)
+
+- **Backend**:
+  - Express (for server-side logic)
+  - Multer (for file uploads)
+  - Cloudinary (for storing hotel images)
+  - Docker (for containerization)
+
+## Setup Guide
+
+### 1. Clone the Repository
+
+```bash
+git clone <repo-link>
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### 2. Set up the Backend
+
+Navigate to the backend folder and run Docker:
+
+```bash
+cd hotelManagementSystem/backend
+sudo docker compose up
+npm run dev
+```
+
+### 3. Set up the Frontend
+
+Navigate to the frontend folder and start the development server:
+
+```bash
+cd ../frontend
+npm run dev
+```
+
+### 4. Add Hotels and Locations
+
+- Sign up as an **Admin** to add new hotels and manage locations.
+  
+Once everything is set up, you are ready to explore and use the Hotel Management System!
+
+---
+
+Enjoy your hotel booking experience!
