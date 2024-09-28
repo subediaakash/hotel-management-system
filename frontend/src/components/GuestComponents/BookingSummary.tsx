@@ -29,9 +29,13 @@ interface BookingSummaryProps {
   totalDays: number;
   hotelPrice: number;
   hotelDiscountedPrice: number;
+  hotelId: number;
+  hotelAddress: string;
 }
 
 function BookingSummary({
+  hotelId,
+  hotelAddress,
   numberOfAdults,
   numberOfRooms,
   dateRange,
@@ -110,6 +114,10 @@ function BookingSummary({
                 <PaymentPortal
                   nights={totalDays}
                   pricePerNight={hotelDiscountedPrice}
+                  // @ts-expect-error
+                  dateRange={dateRange}
+                  hotelId={hotelId}
+                  hotelAddress={hotelAddress}
                 />
               </DrawerContent>
             </Drawer>

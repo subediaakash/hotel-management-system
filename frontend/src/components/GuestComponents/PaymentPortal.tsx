@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { CreditCard, Lock } from "lucide-react";
+import axios from "axios";
 import { Button } from "../../components/ui/button";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -21,9 +23,28 @@ interface OrderSummary {
   taxes: number;
 }
 
-export default function PaymentPortal({ nights, pricePerNight }: any) {
+interface PaymentPortalProps {
+  nights: number;
+  pricePerNight: number;
+  hotelId: number;
+  hotelAddress: string;
+  dateRange: {
+    from: string;
+    to: string;
+  };
+}
+
+export default function PaymentPortal({
+  nights,
+  pricePerNight,
+  hotelId,
+  hotelAddress,
+  dateRange,
+}: PaymentPortalProps) {
+  const navigate = useNavigate();
   const [cardNumber, setCardNumber] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const orderSummary: OrderSummary = {
     roomType: "Deluxe Suite",
@@ -32,20 +53,60 @@ export default function PaymentPortal({ nights, pricePerNight }: any) {
     taxes: 45,
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
     if (validateCardNumber(cardNumber)) {
-      toast.success("Payment processed successfully!", {
-        description: `Your payment of $${calculateTotal().toFixed(
-          2
-        )} has been received.`,
-      });
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("Authentication token not found");
+        }
+
+        const response = await axios.post(
+          `http://localhost:5000/api/guest/newbooking`,
+          {
+            date: formatDate(new Date(dateRange.from)),
+            checkoutDate: formatDate(new Date(dateRange.to)),
+            location: hotelAddress,
+            hotelId: hotelId,
+            cost: calculateTotal(),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        console.log(response.data);
+        toast.success("Payment processed successfully!", {
+          description: `Your payment of $${calculateTotal().toFixed(
+            2
+          )} has been received.`,
+        });
+        setTimeout(() => {
+          navigate("/bookings");
+        }, 2000);
+      } catch (error) {
+        console.error("Payment error:", error);
+        setError(
+          "An error occurred while processing your payment. Please try again."
+        );
+        toast.error("Payment failed", {
+          description: "An error occurred. Please try again later.",
+        });
+      }
     } else {
       setError("Invalid card number. Please check and try again.");
       toast.error("Payment failed", {
         description: "Invalid card number. Please check and try again.",
       });
     }
+    setIsLoading(false);
   };
 
   const validateCardNumber = (number: string) => {
@@ -64,6 +125,10 @@ export default function PaymentPortal({ nights, pricePerNight }: any) {
     return (
       orderSummary.nights * orderSummary.pricePerNight + orderSummary.taxes
     );
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString("en-CA");
   };
 
   return (
@@ -92,9 +157,11 @@ export default function PaymentPortal({ nights, pricePerNight }: any) {
                   />
                   {error && <p className="text-sm text-red-500">{error}</p>}
                 </div>
-                <Button type="submit" className="w-full">
-                  <Lock className="mr-2 h-4 w-4" /> Pay $
-                  {calculateTotal().toFixed(2)}
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  <Lock className="mr-2 h-4 w-4" />
+                  {isLoading
+                    ? "Processing..."
+                    : `Pay $${calculateTotal().toFixed(2)}`}
                 </Button>
               </form>
             </div>

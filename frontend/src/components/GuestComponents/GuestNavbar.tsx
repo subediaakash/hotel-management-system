@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FiMenu, FiX } from "react-icons/fi"; // Icons for hamburger menu
-
+import { FiMenu, FiX } from "react-icons/fi";
 function GuestNavbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Toggle the menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
     <div className="flex flex sm:flex-row items-center justify-between w-full p-4 mb-4 relative">
-      {/* Logo */}
-      <img src="./logo.png" className="w-28" alt="Logo" />
+      <Link to={"/"}>
+        <img src="./logo.png" className="w-28" alt="Logo" />
+      </Link>
 
-      {/* Hamburger Icon for Mobile */}
       <div className="sm:hidden">
         <button onClick={toggleMenu}>
           {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
@@ -25,19 +23,13 @@ function GuestNavbar() {
       {/* Menu for larger screens */}
       <ul className="hidden sm:flex gap-5 items-center font-medium text-blue-500">
         <NavItem to="/bookings" label="Bookings" />
-        <NavItem to="/deals" label="Deals" />
-        <NavItem to="/payments" label="Payments" />
-        <NavItem to="/conversations" label="Conversations" />
+        <NavItem to="/profile" label="Profile" />
       </ul>
 
-      {/* Collapsible Menu for Mobile */}
       {isOpen && (
         <ul className="flex flex-col gap-4 items-start font-medium text-blue-500 sm:hidden bg-white absolute top-full left-0 w-full p-4 z-50">
-          <NavItem to="/" label="Guest Info" />
           <NavItem to="/bookings" label="Bookings" />
-          <NavItem to="/deals" label="Deals" />
-          <NavItem to="/payments" label="Payments" />
-          <NavItem to="/conversations" label="Conversations" />
+          <NavItem to="/profile" label="Profile" />
         </ul>
       )}
     </div>

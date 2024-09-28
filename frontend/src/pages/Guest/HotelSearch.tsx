@@ -78,55 +78,67 @@ function HotelSearch() {
       <div className="flex justify-center items-center">
         <GuestNavbar />
       </div>
-      <div className="max-w-6xl">
-        <BookingForm
-          initialLocation={bookingData.location}
-          initialDateRange={bookingData.dateRange}
-          initialGuests={bookingData.guests}
-          onSubmit={handleBookingSubmit}
-        />
+      <div className="w-screen justify-center flex items-center">
+        <div className="max-w-7xl ">
+          <BookingForm
+            initialLocation={bookingData.location}
+            initialDateRange={bookingData.dateRange}
+            initialGuests={bookingData.guests}
+            onSubmit={handleBookingSubmit}
+          />
+        </div>
       </div>
 
       <div className="HotelCards p-2">
         {isPending && (
-          <div>
+          <div className="flex justify-center items-center">
             <MainHotelCardLoading />
           </div>
         )}
         {error && <div>No Hotels were found</div>}
-        {data && data.length === 0 && <div>No hotels found in this area.</div>}
+        {data && data.length === 0 && (
+          <div className="flex justify-center items-center w-screen">
+            <p className="text-xl text-gray-500">
+              {" "}
+              No hotels found in this area
+            </p>
+          </div>
+        )}
         {data &&
           data.map((hotel: any) => (
-            <Link
-              key={hotel.id}
-              to={{
-                pathname: "/hotelBook",
-              }}
-              state={{
-                hotelImage: hotel.hotelImage,
-                hotelName: hotel.name,
-                hotelAddress: hotel.location,
-                isRefundable: hotel.isRefundable,
-                hotelRating: hotel.ratings,
-                hotelFeatures: hotel.features,
-                hotelPrice: 1000,
-                hotelDiscountedPrice: 500,
-                dateRange: bookingData.dateRange,
-                guestDetails: bookingData.guests,
-                totalDays: totalDays,
-              }}
-            >
-              <MainHotelCard
-                hotelImage={hotel.hotelImage}
-                hotelAddress={hotel.location}
-                hotelPrice={1000}
-                hotelFeatures={hotel.features}
-                hotelRating={hotel.ratings}
-                hotelName={hotel.name}
-                hotelDiscountedPrice={500}
-                totalDate={totalDays}
-              />
-            </Link>
+            <div className="flex justify-center flex-col items-center">
+              <Link
+                key={hotel.id}
+                to={{
+                  pathname: "/hotelBook",
+                }}
+                state={{
+                  hotelId: hotel.id,
+                  hotelImage: hotel.hotelImage,
+                  hotelName: hotel.name,
+                  hotelAddress: hotel.location,
+                  isRefundable: hotel.isRefundable,
+                  hotelRating: hotel.ratings,
+                  hotelFeatures: hotel.features,
+                  hotelPrice: 1000,
+                  hotelDiscountedPrice: 500,
+                  dateRange: bookingData.dateRange,
+                  guestDetails: bookingData.guests,
+                  totalDays: totalDays,
+                }}
+              >
+                <MainHotelCard
+                  hotelImage={hotel.hotelImage}
+                  hotelAddress={hotel.location}
+                  hotelPrice={1000}
+                  hotelFeatures={hotel.features}
+                  hotelRating={hotel.ratings}
+                  hotelName={hotel.name}
+                  hotelDiscountedPrice={500}
+                  totalDate={totalDays}
+                />
+              </Link>
+            </div>
           ))}
       </div>
     </div>

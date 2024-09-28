@@ -7,6 +7,7 @@ import HotelPage from "../../components/GuestComponents/HotelPage";
 function HotelBookingPage() {
   const location = useLocation();
   const {
+    hotelId,
     hotelImage = "",
     hotelName = "",
     hotelAddress = "",
@@ -37,6 +38,8 @@ function HotelBookingPage() {
           isRefundable={isRefundable}
         />
         <BookingSummary
+          hotelId={hotelId}
+          hotelAddress={hotelAddress}
           totalDays={totalDays}
           dateRange={dateRange}
           numberOfAdults={guestDetails.adults}
