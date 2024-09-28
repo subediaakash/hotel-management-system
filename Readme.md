@@ -1,4 +1,4 @@
- # Hotel Management System
+# Hotel Management System
 
 ## Overview
 
@@ -17,7 +17,6 @@ This Hotel Management System is a full-stack application designed to provide use
   - Book rooms based on group size.
   - Make pseudo payments via a credit card form.
   - View booking history for past reservations.
-  
 - **Admin**:
   - Add new hotel locations.
   - Manage existing hotels (add, update, or delete).
@@ -25,6 +24,7 @@ This Hotel Management System is a full-stack application designed to provide use
 ## Tech Stack
 
 - **Frontend**:
+
   - React
   - React Query (for data fetching and caching)
   - Lucide-react-icons (for icons)
@@ -66,7 +66,7 @@ npm run dev
 ### 4. Add Hotels and Locations
 
 - Sign up as an **Admin** to add new hotels and manage locations.
-  
+
 Once everything is set up, you are ready to explore and use the Hotel Management System!
 
 ---
