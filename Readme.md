@@ -72,3 +72,8 @@ Once everything is set up, you are ready to explore and use the Hotel Management
 ---
 
 Enjoy your hotel booking experience!
+
+
+
+### TODO : add admin side ui for adding hotels and verifying bookings
+
