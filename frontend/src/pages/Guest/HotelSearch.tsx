@@ -6,6 +6,7 @@ import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import MainHotelCardLoading from "../../components/loadingComponents/MainHotelCardLoading";
 import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
+import GuestFooterPage from "../../components/GuestComponents/GuestFooterPage";
 
 function HotelSearch() {
   function calculateTotalDays(from: Date, to: Date): number {
@@ -141,6 +142,7 @@ function HotelSearch() {
             </div>
           ))}
       </div>
+      <GuestFooterPage />
     </div>
   );
 }

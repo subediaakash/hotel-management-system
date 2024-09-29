@@ -1,3 +1,4 @@
+import GuestFooterPage from "../../components/GuestComponents/GuestFooterPage";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 
 function PaymentPage() {
