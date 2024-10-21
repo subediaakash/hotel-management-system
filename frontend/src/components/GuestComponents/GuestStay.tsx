@@ -8,7 +8,7 @@ function GuestStay({
   country: string;
 }) {
   return (
-    <div className="flex flex-col items-start justify-center  rounded-lg border max-w-fit roun">
+    <div className="flex flex-col items-start justify-center  rounded-lg border max-w-fit text-slate-300">
       <img
         src={image}
         className="max-w-60 max-h-36 rounded-lg "

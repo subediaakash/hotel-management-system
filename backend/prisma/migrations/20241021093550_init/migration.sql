@@ -82,7 +82,6 @@ CREATE TABLE "Booking" (
     "id" SERIAL NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
     "checkoutDate" TIMESTAMP(3) NOT NULL,
-    "type" "GuestType" NOT NULL,
     "status" "Status" DEFAULT 'notVerified',
     "location" "Locations" NOT NULL,
     "guestId" INTEGER NOT NULL,

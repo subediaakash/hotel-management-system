@@ -1,18 +1,18 @@
 function AdvertisementCard() {
   return (
-    <div className="flex flex-wrap gap-2  p-2">
-      <div className="free-cancelation border w-full md:w-auto">
+    <div className="flex flex-wrap gap-2  p-2 text-slate-300">
+      <div className="free-cancelation border-[.2px] rounded-sm w-full md:w-auto">
         <img
           src="./scenic-image.webp"
           className="object-cover  h-auto aspect-video lg:w-[24vw] md:w-[718px]  object-center md:min-h-[227px] md:max-h-[227px] "
           alt="Scenic view"
         />
-        <div>
+        <div className="p-1">
           <p>Free cancellation on most hotels</p>
           <p>Because Flexibility Matters</p>
         </div>
       </div>
-      <div className="containers flex flex-col gap-2 border">
+      <div className="containers flex flex-col gap-2 border-[0.2px] rounded-sm">
         <div className="lastminDeals flex items-center gap-2">
           <img
             src="group-people.avif"

@@ -27,11 +27,11 @@ function MainGuestPage() {
     }
   };
   const initialDateRange: DateRange = {
-    from: new Date(2024, 9, 1), 
-    to: new Date(2024, 9, 7), 
+    from: new Date(2024, 9, 1),
+    to: new Date(2024, 9, 7),
   };
   return (
-    <div className="flex justify-center gap-2  lg:items-center flex-col bg-[#fcfcfa] ">
+    <div className="flex justify-center gap-2  lg:items-center flex-col  bg-dark-gray bg-custom-gradient-2 ">
       <div className="font-Roboto">
         <div className="h-[10vh] flex items-center justify-center">
           <GuestNavbar />
@@ -54,7 +54,7 @@ function MainGuestPage() {
           />
         </div>
         <div className="outer-div p-3 flex  flex-col ">
-          <p className="font-bold lg:text-xl text-base font-serif ">
+          <p className="font-bold lg:text-xl text-base font-serif text-slate-200">
             Explore stays in trending location
           </p>
           <div className="relative max-w-4xl p-3">
@@ -95,7 +95,7 @@ function MainGuestPage() {
       </div>
       <div>
         <div className="p-3 flex  flex-col">
-          <p className="font-bold lg:text-xl text-base  font-serif">
+          <p className="font-bold lg:text-xl text-base  font-serif text-slate-300">
             Explore world with us
           </p>
         </div>
