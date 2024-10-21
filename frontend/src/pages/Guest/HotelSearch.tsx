@@ -75,7 +75,7 @@ function HotelSearch() {
   };
 
   return (
-    <div>
+    <div className="bg-dark-gray bg-custom-gradient-2">
       <div className="flex justify-center items-center">
         <GuestNavbar />
       </div>
@@ -107,7 +107,7 @@ function HotelSearch() {
         )}
         {data &&
           data.map((hotel: any) => (
-            <div className="flex justify-center flex-col items-center">
+            <div className="flex justify-center flex-col items-center   ">
               <Link
                 key={hotel.id}
                 to={{

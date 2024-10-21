@@ -9,10 +9,10 @@ export default function HotelPage({
 }: any) {
   return (
     <div className="p-2">
-      <div className="mainContainer max-w-3xl">
+      <div className="mainContainer max-w-3xl text-white">
         <div className="header my-2">
           <div className="flex justify-between items-center px-4">
-            <p className="lg:text-2xl text-xl  font-bold text-amber-800">
+            <p className="lg:text-2xl text-xl  font-bold text-amber-700">
               {hotelName.toUpperCase()}
             </p>
             <div className="flex">
@@ -24,7 +24,7 @@ export default function HotelPage({
               ))}
             </div>
           </div>
-          <p className="text-gray-700 px-4">{hotelAddress}</p>
+          <p className="text-gray-300 px-4">{hotelAddress}</p>
         </div>
         <div className="hotel-main ">
           <img src={image} alt="" className="w-96 rounded-md" />
@@ -39,7 +39,7 @@ export default function HotelPage({
               {hotelFeatures.map((feature: any, index: string) => (
                 <li
                   key={index}
-                  className="list-none px-2 rounded text-slate-600"
+                  className="list-none px-2 rounded text-slate-200"
                 >
                   {feature}
                 </li>

@@ -78,84 +78,90 @@ export default function BookingHistory({ bookings = [] }: BookingHistoryProps) {
   }
 
   return (
-    <Card className="w-full max-w-4xl mx-auto mt-10">
-      <CardHeader>
-        <CardTitle className="text-3xl font-bold text-center text-amber-800">
-          Booking History
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px] font-semibold">
-                  Booking ID
-                </TableHead>
-                <TableHead className="font-semibold">Check-in Date</TableHead>
-                <TableHead className="font-semibold">Check-out Date</TableHead>
-                <TableHead className="font-semibold">Status</TableHead>
-                <TableHead className="font-semibold">Location</TableHead>
-                <TableHead className="text-right font-semibold">Cost</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {currentBookings.map((booking) => (
-                <TableRow
-                  key={booking.id}
-                  className="hover:bg-muted/50 transition-colors"
-                >
-                  <TableCell className="font-medium">{booking.id}</TableCell>
-                  <TableCell>{formatDate(booking.date)}</TableCell>
-                  <TableCell>{formatDate(booking.checkoutDate)}</TableCell>
-                  <TableCell>
-                    <Badge
-                      className={`${getStatusColor(
-                        booking.status
-                      )} transition-colors`}
-                    >
-                      {booking.status}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>{booking.location}</TableCell>
-                  <TableCell className="text-right">
-                    {booking.cost ? `$${booking.cost.toFixed(2)}` : "N/A"}
-                  </TableCell>
+    <div>
+      <Card className="w-full max-w-4xl mx-auto mt-10">
+        <CardHeader>
+          <CardTitle className="text-3xl font-bold text-center text-amber-800">
+            Booking History
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px] font-semibold">
+                    Booking ID
+                  </TableHead>
+                  <TableHead className="font-semibold">Check-in Date</TableHead>
+                  <TableHead className="font-semibold">
+                    Check-out Date
+                  </TableHead>
+                  <TableHead className="font-semibold">Status</TableHead>
+                  <TableHead className="font-semibold">Location</TableHead>
+                  <TableHead className="text-right font-semibold">
+                    Cost
+                  </TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <div className="flex items-center justify-between mt-4">
-          <p className="text-sm text-muted-foreground">
-            Page {currentPage} of {totalPages}
-          </p>
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              aria-label="Previous page"
-            >
-              <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">Previous page</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-              }
-              disabled={currentPage === totalPages}
-              aria-label="Next page"
-            >
-              <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">Next page</span>
-            </Button>
+              </TableHeader>
+              <TableBody>
+                {currentBookings.map((booking) => (
+                  <TableRow
+                    key={booking.id}
+                    className="hover:bg-muted/50 transition-colors"
+                  >
+                    <TableCell className="font-medium">{booking.id}</TableCell>
+                    <TableCell>{formatDate(booking.date)}</TableCell>
+                    <TableCell>{formatDate(booking.checkoutDate)}</TableCell>
+                    <TableCell>
+                      <Badge
+                        className={`${getStatusColor(
+                          booking.status
+                        )} transition-colors`}
+                      >
+                        {booking.status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>{booking.location}</TableCell>
+                    <TableCell className="text-right">
+                      {booking.cost ? `$${booking.cost.toFixed(2)}` : "N/A"}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
           </div>
-        </div>
-      </CardContent>
-    </Card>
+          <div className="flex items-center justify-between mt-4">
+            <p className="text-sm text-muted-foreground">
+              Page {currentPage} of {totalPages}
+            </p>
+            <div className="flex space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                aria-label="Previous page"
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">Previous page</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() =>
+                  setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={currentPage === totalPages}
+                aria-label="Next page"
+              >
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">Next page</span>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

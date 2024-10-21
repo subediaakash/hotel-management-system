@@ -22,8 +22,10 @@ function HotelBookingPage() {
   } = location.state || {};
 
   return (
-    <div>
-      <GuestNavbar />
+    <div className=" bg-dark-gray bg-custom-gradient-2 lg:h-[100vh]">
+      <div className="w-full flex justify-center items-center">
+        <GuestNavbar />
+      </div>
       <div className="flex items-center my-auto justify-center flex-wrap">
         <HotelPage
           image={hotelImage}

@@ -23,7 +23,7 @@ function MainHotelCard({
   hotelDiscountedPrice,
 }: MainHotelCardProps) {
   return (
-    <div className="flex flex-col sm:flex-row border rounded-lg w-full sm:w-fit overflow-hidden">
+    <div className="flex flex-col sm:flex-row border rounded-lg w-full sm:w-fit overflow-hidden bg-white m-2">
       <div className="w-full sm:w-72">
         <img
           src={hotelImage}

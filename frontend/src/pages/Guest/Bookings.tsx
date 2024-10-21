@@ -33,8 +33,10 @@ export default function Bookings() {
   });
 
   return (
-    <div>
-      <GuestNavbar />
+    <section className="bg-dark-gray bg-custom-gradient-2 lg:h-[100vh] min-h-[100vh]">
+      <div className="h-[10vh] flex items-center justify-center ">
+        <GuestNavbar />
+      </div>
       {isPending ? (
         <p>Loading...</p>
       ) : error ? (
@@ -44,6 +46,6 @@ export default function Bookings() {
       ) : (
         <NoBookingsFound />
       )}
-    </div>
+    </section>
   );
 }
