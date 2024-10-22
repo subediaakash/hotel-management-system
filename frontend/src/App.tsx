@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import SigninForm from "./components/auth/SigninForm";
 import HotelSearch from "./pages/Guest/HotelSearch";
 import HotelBookingPage from "./pages/Guest/HotelBookingPage";
+import ProfilePage from "./pages/Guest/ProfilePage";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         />
 
         <Route path="/hotelBook" element={<HotelBookingPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
   );
