@@ -18,6 +18,7 @@ export const guestDetails = async (req: Request, res: Response) => {
         language: true,
         work: true,
         address: true,
+        password: false,
       },
     });
 
