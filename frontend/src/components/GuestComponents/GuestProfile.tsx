@@ -103,11 +103,11 @@ const ProfileField = ({
 }: ProfileFieldProps): JSX.Element => {
   return (
     <div className="space-y-2">
-      <Label className="text-sm font-medium text-muted-foreground ">
+      <Label className="text-sm font-semibold  text-muted-foreground  ">
         {label}
       </Label>
-      <div className="flex items-center space-x-2">
-        <Icon className="w-4 h-4 text-muted-foreground" />
+      <div className="flex items-center space-x-2 text-pink-800">
+        <Icon className="w-4 h-4 text-muted-foreground " />
         {isEditing && field !== "email" ? (
           <Input
             value={value}
@@ -206,7 +206,6 @@ export default function GuestProfile(): JSX.Element {
 
   return (
     <div>
-      <GuestNavbar />
       <div className=" flex items-center justify-center p-4">
         <Card className="w-full max-w-3xl shadow-lg">
           <CardHeader className="text-center">
@@ -219,12 +218,12 @@ export default function GuestProfile(): JSX.Element {
                 <AvatarFallback>{displayData.name.charAt(0)}</AvatarFallback>
               </Avatar>
             </div>
-            <CardTitle className="text-3xl font-bold">
+            <CardTitle className="text-3xl font-bold text-blue-700">
               {isEditing ? (
                 <Input
                   value={displayData.name}
                   onChange={(e) => handleChange("name", e.target.value)}
-                  className="text-center text-3xl font-bold"
+                  className="text-center text-3xl font-bold "
                 />
               ) : (
                 displayData.name

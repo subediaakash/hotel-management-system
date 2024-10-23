@@ -6,7 +6,6 @@ import BookingForm from "../../components/GuestComponents/BookingForm";
 import GuestNavbar from "../../components/GuestComponents/GuestNavbar";
 import MainHotelCardLoading from "../../components/loadingComponents/MainHotelCardLoading";
 import MainHotelCard from "../../components/GuestComponents/MainhotelCard";
-import GuestFooterPage from "../../components/GuestComponents/GuestFooterPage";
 
 function HotelSearch() {
   function calculateTotalDays(from: Date, to: Date): number {
@@ -60,6 +59,9 @@ function HotelSearch() {
           },
         }
       );
+      setTimeout(() => {
+        console.log("data is being fetched");
+      }, 2000);
       return response.data.data;
     },
     enabled: !!bookingData.location,
@@ -75,7 +77,7 @@ function HotelSearch() {
   };
 
   return (
-    <div className="bg-dark-gray bg-custom-gradient-2">
+    <div className="bg-dark-gray bg-custom-gradient-2 min-h-screen">
       <div className="flex justify-center items-center">
         <GuestNavbar />
       </div>
@@ -142,7 +144,6 @@ function HotelSearch() {
             </div>
           ))}
       </div>
-      <GuestFooterPage />
     </div>
   );
 }
