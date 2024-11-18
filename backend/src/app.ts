@@ -11,10 +11,6 @@ import upload from "./utils/multer-config";
 const app = express();
 const port = 5000;
 
-var corsOptions = {
-  origin: "http://localhost:5173",
-  optionsSuccessStatus: 200,
-};
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -23,7 +19,8 @@ cloudinary.config({
 
 app.use(express.json());
 
-app.use("/api/guest", cors(corsOptions), guestRouter);
+app.use(cors());
+app.use("/api/guest", guestRouter);
 app.use("/api/admin", adminRouter);
 
 app.post("/temp", upload.single("hotelImage"), async (req, res) => {
